@@ -1,7 +1,6 @@
 
 import { getPosts } from '@/lib/getPosts';
 
-
 interface Post {
   id: string;
   title: string;
