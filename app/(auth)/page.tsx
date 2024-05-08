@@ -1,6 +1,5 @@
 
 import Image from "next/image";
-import Generate from '@/components/Generate'
 import {getPosts} from '@/lib/getPosts'
 import Login from './Login'
 
