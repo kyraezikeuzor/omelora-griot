@@ -1,0 +1,22 @@
+.button {
+    padding:.2rem 1.0rem;
+    background-color: rgb(6, 4, 24);
+    border-radius: 12px;
+    color: white;
+    fill: white;
+    white-space: nowrap;
+    font-weight:600;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    width:fit-content;
+    }
+
+.outline {
+    fill: var(--clr-grey-base);
+    background-color: transparent;
+    border:1px solid var(--clr-grey-base);
+    color: var(--clr-grey-base);
+    box-shadow: none;
+}

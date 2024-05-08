@@ -1,0 +1,22 @@
+.circle-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust as needed */
+    width: 100px; /* Adjust as needed */
+  }
+  
+  .circle {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    border: 3px solid var(--clr-grey-light); /* Adjust color and thickness as needed */
+    border-radius: 50%; /* Makes it a circle */
+    border-top-color: var(--clr-blue-base); /* Adjust color as needed */
+    animation: spin 1s infinite linear; /* Animation */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

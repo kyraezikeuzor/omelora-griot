@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+  
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --clr-base: #fdfdfd;
+    --clr-base-accent:rgb(232, 230, 230);
+    --clr-base-default: white;
+    --clr-base-text: #353232;
+
+    --clr-red-base: #FF3E4A;
+
+    --clr-pink-base: #f5aece;
+    --clr-pink-light: rgb(255, 242, 244);
+    --clr-pink-dark: rgb(205, 66, 89);
+
+    --clr-blue-light: #f1f5f6; /*#eef3f8;*/
+    --clr-blue-base: #36a5eb; /*#1D72CD*/
+    --clr-blue-dark: #090c21;
+
+    --clr-purple-base:#4A55F5;
+
+    --clr-grey-extralight:#f8f8f8;
+    --clr-grey-light: #e5e5e5;
+    --clr-grey-base: rgb(218, 218, 218);
+    --clr-grey-dark: rgb(114, 110, 110);
+
+    --clr-orange-light:#f9e5d5;
+    --clr-orange-base:#ff8e24;
+    --clr-orange-dark:#e87816;
+
+    --clr-cream-light: #DADDC2;
+    --clr-cream-base: #f5fff3;
+
+    --clr-green-light: rgb(234, 248, 217);
+    --clr-green-base: #D6F678; /*#d8e267*/
+    --clr-green-dark: rgb(43, 65, 16);
+    
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --clr-base: #292828;
+    --clr-base-text: #F9F8F8;
+    --clr-base-accent: rgb(85, 83, 83);
+    --clr-base-default: rgb(61, 61, 61);
+
+    --clr-blue-light: #f1f5f6b7; /*#eef3f8;*/
+
+    --clr-grey-light: rgb(63, 61, 61);
+    --clr-grey-base: rgba(204, 202, 202, 0.671);
+    --clr-grey-dark: rgb(207, 207, 207);
+
+    --clr-peach-base: rgb(243, 88, 140);
+
+    --clr-green-base: rgb(120, 172, 61);
+    --clr-green-light: rgb(182, 224, 133);
+  }
+}
+
+body {
+  background-color: var(--clr-base);
+  color: var(--clr-base-text);
+  overflow-x:hidden;
+}
+
+input {
+  border-radius: 8px;
+  padding: .5rem;
+  border: 1px solid var(--clr-grey-light);
+  background-color: var(--clr-base);
+  color: var(--clr-text);
+}
+
+input[type="text"] {
+  background-color:rgb(251, 251, 251);
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid var(--clr-grey-base);
+}
+
+select {
+  background-color: var(--clr-base);
+  outline: none;
+  border: 1px solid var(--clr-grey-light);
+  border-radius: 8px;
+  padding: .5rem;
+  font-size: 14px;
+}
+
+svg {
+  fill: var(--clr-base-text);
+}
+
+h1 {
+  line-height: 1.2em;;
+}
+
+a {
+  cursor:pointer;
+}
+
+
