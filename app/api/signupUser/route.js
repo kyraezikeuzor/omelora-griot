@@ -1,6 +1,6 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 
-import userInfo from "@/lib/getUser";
+import {getUser} from "@/lib/getUser";
 
 export async function POST(req) {
   const body = await req.json();
