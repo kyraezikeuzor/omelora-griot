@@ -56,7 +56,7 @@ export function SidebarComponent() {
         </div> 
       </div>
 
-      <div className='flex flex-col items-center'>
+      <div className='fixed bottom-3 flex flex-col items-center'>
         <ProfileIcon size='lg'/>
       </div>
 
