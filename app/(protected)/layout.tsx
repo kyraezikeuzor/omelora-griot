@@ -41,13 +41,13 @@ export default async function RootLayout({ children }:{children:React.ReactNode}
     }
     
     return (
-    <section className='relative w-full min-h-screen flex flex-row gap-10'>
+    <section className='relative w-full min-h-screen flex flex-row lg:gap-10'>
              
       <Sidebar/>
       
-      <section className='flex flex-col w-full'>
+      <section className='flex flex-col w-full bg-red-'>
         <PrivateNavbar/>
-        <section className='flex flex-col items-center min-h-screen py-[2vh]  lg:mr-[1vw] lg:ml-[3vw] 2xl:mr-[2vw] 2xl:ml-[6vw]'>
+        <section className='flex flex-col items-center min-h-screen py-[2vh] lg:mr-[1vw] lg:ml-[3vw] 2xl:mr-[2vw] 2xl:ml-[6vw]'>
             {children}
         </section>
       </section>

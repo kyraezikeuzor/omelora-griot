@@ -17,7 +17,7 @@ export default function LogOut() {
        
     <span onClick={signOut} className='cursor-pointer'>
         <Icon icon="LogOut" className='inline fill-[--clr-red-base]'/>
-        <span className='text-[--clr-red-base]'>
+        <span className='ml-2 text-[--clr-red-base]'>
             Log Out
         </span>
     </span>

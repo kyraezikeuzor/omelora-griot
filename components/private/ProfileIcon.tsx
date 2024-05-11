@@ -22,8 +22,6 @@ export default async function ProfileIcon({size}:ProfileIconProps) {
           <div >
             My Profile
             <br/>
-            My Courses
-            <br/>
             Settings
           </div>
 

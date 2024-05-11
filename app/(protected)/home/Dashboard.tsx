@@ -229,7 +229,7 @@ export default function Generate() {
                     </div>
                 </div>
 
-                <div className='flex flex-col h-screen overflow-y-scroll gap-2 border border-[--clr-grey-light] p-5 rounded-md'>
+                <div className='flex flex-col h-2/5 overflow-y-scroll gap-2 border border-[--clr-grey-light] p-5 rounded-md'>
                     <span className='font-semibold text-sm'>Select from Articles</span>
                     <div className='flex flex-col gap-5'>
                     {!articlesLoading ? articles?.map((item,index)=>(
@@ -288,6 +288,7 @@ export default function Generate() {
                 <div className=''>
                     {!AIResponseLoading ? AIResponse : <CircleLoader/>}
 
+                    
                     
                 </div>
             </section>

@@ -42,7 +42,7 @@ const Select = ({children, onSelectOn, onSelectOff}: SelectProps) => {
 
     useEffect(()=>{
       if (isRefreshing == false && click == true) {
-        //onSelectOff() // Dont change state when the page refreshes
+        onSelectOff() // Dont change state when the page refreshes
         console.log('dsafkhdas')
       }
     })
