@@ -53,6 +53,7 @@
 
     --clr-blue-light: #f1f5f6b7; /*#eef3f8;*/
 
+    --clr-grey-extralight:#383838;
     --clr-grey-light: rgb(63, 61, 61);
     --clr-grey-base: rgba(204, 202, 202, 0.671);
     --clr-grey-dark: rgb(207, 207, 207);
@@ -80,7 +81,7 @@ input {
 }
 
 input[type="text"] {
-  background-color:rgb(251, 251, 251);
+  background-color:var(--clr-grey-extralight);
 }
 
 input:focus {
