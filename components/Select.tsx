@@ -6,9 +6,11 @@ type SelectProps = {
     children: React.ReactNode;
     onSelectOn?: any;
     onSelectOff?:any;
+    thisItem:any;
+    list:any;
 }
 
-const Select = ({children, onSelectOn, onSelectOff}: SelectProps) => {
+const Select = ({children, onSelectOn, onSelectOff, thisItem, list}: SelectProps) => {
 
     const [click, setClick] = useState(false)
     const [prevClick, setPrevClick] = useState(false);
@@ -26,6 +28,14 @@ const Select = ({children, onSelectOn, onSelectOff}: SelectProps) => {
             onSelectOn();
         }
       }, [click, prevClick]);
+
+    useEffect(()=>{
+      if (list.includes(thisItem) == false) {
+        setClick(false)
+      } else if (list.includes(thisItem) == true) {
+        setClick(true)
+      }
+    },[list])
 
     return (
         <>

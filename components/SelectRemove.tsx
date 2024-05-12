@@ -4,11 +4,10 @@ import Icon from './Icon'
 
 type SelectProps = {
     children: React.ReactNode;
-    onSelectOn?: any;
     onSelectOff?:any;
 }
 
-const Select = ({children, onSelectOn, onSelectOff}: SelectProps) => {
+const Select = ({children, onSelectOff}: SelectProps) => {
 
     // Page mount state
     const [isRefreshing, setIsRefreshing] = useState<boolean>(false)
@@ -43,7 +42,7 @@ const Select = ({children, onSelectOn, onSelectOff}: SelectProps) => {
     useEffect(()=>{
       if (isRefreshing == false && click == true) {
         onSelectOff() // Dont change state when the page refreshes
-        console.log('dsafkhdas')
+        console.log('Removing item from list')
       }
     })
 

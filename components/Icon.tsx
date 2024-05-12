@@ -34,8 +34,8 @@ const Icon = ({icon, onClick, className,size, button}: IconProps) => {
         >
             <path 
                 className={`block m-auto`}
-                fill-rule="evenodd" 
-                clip-rule="evenodd" 
+                fillRule="evenodd" 
+                clipRule="evenodd" 
                 d={getIcon()} 
             />
         </svg>

@@ -30,9 +30,7 @@ export function SidebarComponent() {
         bg-[--clr-base] border-r border-[--clr-grey-light] shadow-md">
 
       <div className='w-full flex flex-col gap-[9px] px-1 '>
-        
         <Link href='/' className='flex flex-col items-center mt-3'>
-          
           <span className='w-fit p-2 border-2 border-[--clr-grey-light] rounded-lg'>
             <Icon icon="House"/>
           </span>
@@ -49,7 +47,7 @@ export function SidebarComponent() {
 
           <Link href="/posts" className='hover:bg-[--clr-base-accent] p-2 rounded-lg'>
             <span>
-              <Icon icon="Bell"/>
+              <Icon icon="PencilEdit"/>
             </span>
           </Link>
           
@@ -59,9 +57,7 @@ export function SidebarComponent() {
       <div className='fixed bottom-3 flex flex-col items-center'>
         <ProfileIcon size='lg'/>
       </div>
-
     </div>
-
     )
 }
 
@@ -77,7 +73,6 @@ export function SidebarComponentMobile() {
         <div className='flex flex-col gap-10'>
           <div className='relative w-full gap-16 flex flex-row items-center justify-between'>
             <Logo path='/dashboard' className='w-6'/>
-            
           </div>
 
           <div className="flex flex-col items-start w-full gap-5 text-base font-medium">
@@ -92,7 +87,7 @@ export function SidebarComponentMobile() {
 
             <Link href="/posts" >
               <span className='flex flex-row gap-3'>
-                <Icon icon="Bell"/>
+                <Icon icon="PencilEdit"/>
                 <span>
                   Posts
                 </span>

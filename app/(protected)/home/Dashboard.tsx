@@ -3,16 +3,18 @@ import React, {useState, useEffect} from 'react'
 
 import { createClient } from "@/lib/supabase/client";
 
-import {Article} from '@/types';
+import {Article, ArticleContent} from '@/types';
+
 import Icon from '@/components/Icon'
 import ArticleComponent from '@/components/Article'
 import Select from '@/components/Select'
 import SelectRemove from '@/components/SelectRemove'
 import CircleLoader from '@/components/CircleLoader'
 
+import getArticleText from '@/lib/getArticleTextOld'
 import getAIResponse from '@/lib/getAIResponse'
-import {postData, getData} from '@/lib/requests/requests'
-import {handleAddItem, handleRemoveItem, checkPageRefreshing} from '@/utils/utilities'
+import {postData} from '@/lib/requests/requests'
+import {handleAddItem, handleRemoveItem, getIndex} from '@/utils/helpers'
 import {infographicPrompt, spotlightPrompt} from '@/utils/prompts'
 
 
@@ -23,7 +25,7 @@ export default function Generate() {
     const [postType, setPostType] = useState<string>('1')
     const [articles, setArticles] = useState<Article[]>([])
 
-    const [articleContents, setArticleContents] = useState<string[]>([])
+    const [articlesContent, setArticlesContent] = useState<ArticleContent[]>([])
     const [selectedArticles, setSelectedArticles] = useState<Article[]>([])
     const [prompt, setPrompt] = useState<string>('')
     const [AIResponse, setAIResponse] = useState<string | null>(null)
@@ -56,18 +58,6 @@ export default function Generate() {
         };
       });
     
-
-    const getSessionUser = async () => {
-        const supabase = createClient()
-        const {
-          data: { user },
-          error,
-        } = await supabase.auth.getUser();
-        if (error || !user) {
-          return null; // Return null if no user or error occurs
-        }
-        return user;
-    }
 
     useEffect(()=>{
         const getUserProgress = async () => {
@@ -114,12 +104,6 @@ export default function Generate() {
         getUserProgress()
     },[]); // Update once component mounts
 
-    useEffect(()=>{
-        console.log(isRefreshing, 'refreshing state')
-        console.log(document.hidden, 'is document hidden')
-        console.log(selectedArticles)
-    })
-
     useEffect(() => {
         const updateUserData = async () => {
             const supabase = createClient()
@@ -148,9 +132,9 @@ export default function Generate() {
 
             console.log(isRefreshing)
 
-            if (isRefreshing == false) { // This fixes the error of after refreshing, selectedArticles is wiped and made an empty array
+            if (isRefreshing == false) { // Ensures that when refreshing a page, selectedArticles will not be wiped and not push an empty array to the db
                 try {
-                    const {data,error} = await supabase
+                    const { data,error } = await supabase
                     .from('User Progress')
                     .update({selected_searched_articles:selectedArticles})
                     .eq('user_id', user?.id)
@@ -163,7 +147,44 @@ export default function Generate() {
         updateUserData()
 
       }, [articles, postType, selectedArticles, isRefreshing]);
-      
+
+    useEffect(()=>{
+        const handleFetchArticleText = async () => {
+            try {
+                const data: ArticleContent[] = await getArticleText(selectedArticles)
+                console.log(data)
+                setArticlesContent(data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        handleFetchArticleText()
+    },[selectedArticles])
+
+    useEffect(()=>{
+        /*const handleCreatePrompt = () => {
+            if (postType === '1') {
+                setPrompt(infographicPrompt + articleContents)
+            } else if (postType === '2') {
+                setPrompt(spotlightPrompt + articleContents)
+            }
+        }
+        handleCreatePrompt()*/
+    }, [postType])
+
+
+    const getSessionUser = async () => {
+        const supabase = createClient()
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+        if (error || !user) {
+          return null; // Return null if no user or error occurs
+        }
+        return user;
+    }
 
     const handleArticleSearch = async () => {
         setArticlesLoading(true)
@@ -179,36 +200,32 @@ export default function Generate() {
         }
     };
 
-    /*useEffect(()=>{
-        const getArticleTexts = async () => {
-            if (selectedArticles != null) {
-                const body = { articles: selectedArticles }
-                const data = await postData('api/articleText', {body})
-                const articleTexts = await data.json()
-                console.log(articleTexts)
-            }
-        }
-        getArticleTexts()*/
-
-    useEffect(()=>{
-        const handleCreatePrompt = () => {
-            if (postType === '1') {
-                setPrompt(infographicPrompt + articleContents)
-            } else if (postType === '2') {
-                setPrompt(spotlightPrompt + articleContents)
-            }
-        }
-        handleCreatePrompt()
-    }, [postType, articleContents])
-
-
     const handleAIResponse = async () => {
         setAIResponseLoading(true)
-        const chat = await getAIResponse(prompt + articleContents)
+        const chat = await getAIResponse(prompt)
         if (chat != null) {
             setAIResponse(chat)
             setAIResponseLoading(false)
         }
+    }
+
+    const handleCheckArticleHasText = (article:Article) => {
+        // Check if article is selected?
+        if (articlesContent != null) {
+            if (selectedArticles.includes(article)) {
+                // Const index = the number where article parameter equals selected Articles
+                const index = getIndex(article, articles, selectedArticles)
+                
+                if (articlesContent[index]) {
+                    if (articlesContent[index].text.length < 10) {
+                        return 'No Text Available'
+                    } else if (articlesContent[index].text.length >= 10) {
+                        return `Text Available`
+                    }
+                }  
+            }
+        }
+        return
     }
     
 
@@ -223,12 +240,11 @@ export default function Generate() {
                         onChange={(e)=>setSearch(e.target.value)} 
                         className='w-full'
                         placeholder={search}/>
-                        <button className='bg-[--clr-blue-base] p-2 rounded-lg' onClick={handleArticleSearch}>
+                        <button className='bg-[--clr-green-base] p-2 rounded-lg' onClick={handleArticleSearch}>
                             <Icon icon="Search" className='fill-white'/>
                         </button>
                     </div>
                 </div>
-
                 <div className='flex flex-col h-2/5 overflow-y-scroll gap-2 border border-[--clr-grey-light] p-5 rounded-md'>
                     <span className='font-semibold text-sm'>Select from Articles</span>
                     <div className='flex flex-col gap-5'>
@@ -237,6 +253,8 @@ export default function Generate() {
                         key={index}
                         onSelectOn={()=>{handleAddItem(setSelectedArticles, selectedArticles, item)}}
                         onSelectOff={()=>{handleRemoveItem(setSelectedArticles, selectedArticles, item)}}
+                        thisItem={item}
+                        list={selectedArticles}
                         >
                             <ArticleComponent
                             position={item.position}
@@ -251,7 +269,6 @@ export default function Generate() {
                     )) : <CircleLoader/> }
                     </div>
                 </div>
-
                 <div className='flex flex-col gap-2 border border-[--clr-grey-light] p-5 rounded-md'>
                     <span className='font-semibold text-sm'>Select Post Type</span>
                     <select
@@ -262,8 +279,7 @@ export default function Generate() {
                         <option value='2'>Spotlight</option>
                     </select>
                 </div>
-
-                <button className='bg-[--clr-blue-base] p-2 rounded-lg text-white font-medium' onClick={()=>handleAIResponse()}>
+                <button className='bg-[--clr-green-base] p-2 rounded-lg text-white font-medium' onClick={()=>handleAIResponse()}>
                     Generate <Icon icon="Search" className='inline fill-white' size='sm'/>
                 </button>
             </section>
@@ -271,7 +287,7 @@ export default function Generate() {
             <section className='w-full md:w-2/3 min-h-full flex flex-col gap-5 p-5 rounded-lg border border-[--clr-grey-light] shadow-sm'>
                 <div className='w-full flex flex-row items-center justify-between'>
                     <span className='font-semibold text-sm'>Generate Post</span>
-                    <button className='bg-[--clr-blue-base] py-2 px-4 text-sm rounded-lg text-white font-medium' onClick={()=>handleAIResponse()}>
+                    <button className='bg-[--clr-green-base] py-2 px-4 text-sm rounded-lg text-white font-medium' onClick={()=>handleAIResponse()}>
                         Add to Database <Icon icon="Check" className='inline fill-white' size='sm'/>
                     </button>
                 </div>
@@ -280,7 +296,7 @@ export default function Generate() {
                     <div className='flex flex-col gap-1'>
                         {selectedArticles?.map((item,index)=>(
                             <SelectRemove key={index} onSelectOff={()=>handleRemoveItem(setSelectedArticles,selectedArticles,item)}>
-                                <span>{item.title} | {item.source}</span>
+                                <span className='text-sm'>{item.title} | {item.source} | <b className='font-semibold'>{handleCheckArticleHasText(item)}</b></span>
                             </SelectRemove>
                         ))}
                     </div>

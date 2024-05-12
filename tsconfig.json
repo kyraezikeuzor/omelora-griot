@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/server.js", "lib/getSearchResults.js", "app/api/articleText/route.ts", "lib/getUserProgress.ts", "lib/supabase/client.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/server/server.js", "lib/getSearchResults.js", "app/api/proxy/route.ts", "lib/getUserProgress.ts", "lib/supabase/client.js", "middleware.js", "app/api/proxy/[...path]/route.js"],
   "exclude": ["node_modules"]
 }

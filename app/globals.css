@@ -37,8 +37,8 @@
     --clr-cream-light: #DADDC2;
     --clr-cream-base: #f5fff3;
 
-    --clr-green-light: rgb(234, 248, 217);
-    --clr-green-base: #D6F678; /*#d8e267*/
+    --clr-green-base:#45DB7B;
+    --clr-green-light: #D6F678; /*#d8e267*/
     --clr-green-dark: rgb(43, 65, 16);
     
 }
@@ -59,8 +59,9 @@
 
     --clr-peach-base: rgb(243, 88, 140);
 
-    --clr-green-base: rgb(120, 172, 61);
-    --clr-green-light: rgb(182, 224, 133);
+
+    --clr-green-base:#45DB7B;
+    --clr-green-light: #D6F678; /*#d8e267*/
   }
 }
 

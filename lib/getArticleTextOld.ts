@@ -1,11 +1,11 @@
 import { Article } from '@/types';
-import { parse } from 'node-html-parser';
 import axios from 'axios';
+import {load} from 'cheerio'
+import { parse } from 'node-html-parser';
 import { htmlToText } from 'html-to-text';
 import cheerio from 'cheerio'
-import {load} from 'cheerio'
 
-const getTextContents = async (articles: Article[]) => {
+const getArticleText = async (articles: Article[]) => {
     try {
         const texts = [];
 
@@ -26,7 +26,7 @@ const getTextContents = async (articles: Article[]) => {
 
             // Store the text content along with any other relevant data from the article object
             texts.push(
-                `${article.title + text}`
+                {title: article.title, text:text, link:article.link}
             );
         }
 
@@ -35,30 +35,6 @@ const getTextContents = async (articles: Article[]) => {
         console.error('Error fetching article text:', error);
         throw error;
     }
-    
-    
-    /*const textContents: string[] = [];
-
-    for (const article of articles) {
-        try {
-            const response = await axios.get(`http://localhost:3001/proxy?url=${encodeURIComponent(article.link)}`);
-            const html = response.data;
-            const root = parse(html);
-            const text = htmlToText(root.innerHTML, {
-                baseElements: { selectors: [ 'body' ] },
-                selectors: [ { selector: 'a', options: { ignoreHref: true }}, 
-                { selector: 'img', format: 'skip' }, { selector: 'p'} ],
-                tables: true
-            });
-            textContents.push(text);
-        } catch (error) {
-            console.error(`Error fetching article text for ${article.title}:`, error);
-            textContents.push('');
-        }
-    }
-
-    console.log(textContents)
-    return textContents;*/
 }
 
-export default getTextContents;
+export default getArticleText;

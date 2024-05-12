@@ -2,7 +2,7 @@ import { Client } from '@notionhq/client';
 
 
 
-export default async function getPosts() {
+export default async function getPost(postId:string) {
 
   const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_GRIOT_DB });
 
@@ -12,7 +12,7 @@ export default async function getPosts() {
     database_id: databaseId,
   });
 
-  return response?.results.map((page:any) => ({
+  const item = response?.results.filter(item => item.id === postId).map((page:any) => ({
     id: page.id,
     title: page.properties['Title']?.title[0].text?.content,
     status:page.properties['Status']?.status?.name,
@@ -22,5 +22,8 @@ export default async function getPosts() {
     caption: page.properties['Caption']?.rich_text.map((item:any)=> item.text?.content),
     designLink: page.properties['Design-link']?.text?.content,
     createdBy: page.properties['Created-by']?.text?.content,
-  }));
+  }))
+
+
+  return item;
 }

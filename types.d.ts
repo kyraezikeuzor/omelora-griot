@@ -11,11 +11,20 @@ type Article = {
     thumbnail:string
 }
 
+type ArticleContent = {
+    title:string,
+    text:string,
+    link:string,
+}
+
 type Post = {
     id:string;
     title:string;
-    postedDate:string;
+    status:string;
+    postDate:string;
     tags:string[];
     content:string;
+    caption:string;
+    designLink:string;
     createdBy:string;
 }

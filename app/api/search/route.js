@@ -42,8 +42,6 @@ export async function POST(req, res) {
         // Run the cors middleware
         //await runMiddleware(req, res, cors);
 
-      
-
     } catch (error) {
         console.error('Error proxying request to SerpApi:', error);
         res.status(500).json({ error: 'Internal server error' });

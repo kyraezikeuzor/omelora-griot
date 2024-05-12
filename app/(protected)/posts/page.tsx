@@ -1,36 +1,33 @@
 
-import { getPosts } from '@/lib/getPosts';
+import getPosts from '@/lib/getPosts';
+import {Post} from '@/types'
+import PostCard from './PostCard'
 
-interface Post {
-  id: string;
-  title: string;
-  date: string;
-  tags: string[];
-  content: string;
-}
 interface Props {
   posts: Post[];
 }
 export default async function Home({  }:{}) {
 
-  const posts = await getPosts()
+  const posts:Post[] = await getPosts()
 
   return (
     <section>
-            <div>
-                {posts.map((post) => (
-                    <div key={post.id}>
-                    <h2>{post.title}</h2>
-                    <p>{post.postedDate}</p>
-                    <ul>
-                        {post.tags.map((tag:string) => (
-                        <li key={tag}>{tag}</li>
-                        ))}
-                    </ul>
-                    <p>{post.content}</p>
-                    </div>
-                ))}
-            </div>
-        </section>
+      <div className='flex flex-col gap-3 md:grid md:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 '>
+          {posts.map((item,index) => (
+              <PostCard
+              key={index}
+              id={item.id}
+              title={item.title}
+              status={item.status}
+              postDate={item.postDate}
+              tags={item.tags}
+              content={item.content}
+              caption={item.caption}
+              designLink={item.designLink}
+              createdBy={item.createdBy}
+              />
+          ))}
+      </div>
+    </section>
   );
 }

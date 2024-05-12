@@ -26,6 +26,7 @@ export default function ArticleComponent({position,link,title,source,date,snippe
                 <span><span className='font-medium'>Date:</span> {date}</span>
                 <span><span className='font-medium'>Snippet:</span> {snippet}</span>
                 <span><span className='font-medium'>Link: </span> <Link target='_blank' href={link}><Icon icon='Location' className='inline ' size='sm'/></Link></span>
+                {link}
             </div>
         </div>
     )
