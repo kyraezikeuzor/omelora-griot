@@ -39,13 +39,13 @@ export function SidebarComponent() {
         <div className="flex flex-col items-center w-full gap-2 text-base font-medium border-t border-[--clr-grey-light]">
           <br/>
 
-          <Link href="/home" className='hover:bg-[--clr-base-accent] p-2 rounded-lg'>
+          <Link href="/home" className='hover:bg-[--clr-grey-extralight] p-2 rounded-lg'>
             <span>
               <Icon icon="House" />
             </span>
           </Link>
 
-          <Link href="/posts" className='hover:bg-[--clr-base-accent] p-2 rounded-lg'>
+          <Link href="/posts" className='hover:bg-[--clr-grey-extralight] p-2 rounded-lg'>
             <span>
               <Icon icon="PencilEdit"/>
             </span>
@@ -93,7 +93,6 @@ export function SidebarComponentMobile() {
                 </span>
               </span>
             </Link>
-
           </div>
         </div>
 

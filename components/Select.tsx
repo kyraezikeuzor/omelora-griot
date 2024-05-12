@@ -41,7 +41,7 @@ const Select = ({children, onSelectOn, onSelectOff, thisItem, list}: SelectProps
         <>
           <div 
           onClick={() => setClick(!click)} 
-          className={`flex flex-row gap-2 p-1 items-center rounded-lg ${click ? 'bg-[--clr-blue-light] border-4 border-[--clr-blue-base]' : 'bg-[--clr-grey-light] border-4 border-[--clr-grey-base]'} `}>
+          className={`flex flex-row gap-2 p-1 items-center rounded-lg ${click ? 'bg-[--clr-blue-light] border-4 border-[--clr-blue-base]' : 'bg-[--clr-grey-light] border-2 border-[--clr-grey-base]'} `}>
             {children}
           </div>
         </>
