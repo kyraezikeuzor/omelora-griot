@@ -1,0 +1,32 @@
+/* styles/Tooltip.css */
+.tooltip {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tooltip:hover::after {
+    content: attr(data-tooltip);
+    font-size:12px;
+    font-weight:500;
+    padding: .1rem .5rem;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(0, -50%);
+    margin-left: 0.5rem;
+    background-color: var(--clr-base-text);
+    color: var(--clr-base);
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    z-index: 10;
+  }
+  
+  .icon-wrapper {
+    width: fit-content;
+    padding: 0.5rem;
+    border: 2px solid var(--clr-grey-light);
+    border-radius: 0.5rem;
+  }
+  

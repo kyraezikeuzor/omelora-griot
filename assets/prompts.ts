@@ -1,10 +1,11 @@
 export const infographicPrompt = `
-Prompt: Generate a 7 slide informative Instagram post in casual and informative language in the format below. Do not be redundance or repeat information. Use the Post Format as a guideline for your generation. Only se the Articles below for the information generated.
+Prompt: Generate a 7 slide informative Instagram post in casual and informative language in the format below. 
+Do not be redundance or repeat information. Use the Post Format as a guideline for your generation. 
+You must follow and meet the Post Objective. Only use the Articles below for the post generated.
 
 Post Format:
 
 Slide 1
-Post title: 
 Transition phrase: 
 
 Slide 2
@@ -31,13 +32,14 @@ Slide 7
 Heading: Now what can we do about this?
 Body: 5 bullets points for what we can do.
 
-Article(s):
+
+Post Objective:
 
 `
 
 export const spotlightPrompt = `
 Prompt: Generate a 1 slide informative Instagram post in casual and informative language in the format below. 
-Do not repeat information. Do not be redundant. 
+Do not repeat information. Do not be redundant. You must follow and meet the post objective. Only use the Articles below for the post generated.
 
 \nPost Format:
 
@@ -45,6 +47,8 @@ Slide 1
 Post title
 Body: 2 20-word paragraphs about the topic 
 
-Article(s):
+
+Post Objective:
+
 
 `

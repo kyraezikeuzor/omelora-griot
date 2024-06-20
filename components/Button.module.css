@@ -1,22 +1,43 @@
 .button {
-    padding:.2rem 1.0rem;
-    background-color: rgb(6, 4, 24);
-    border-radius: 12px;
+    padding: .6rem 1.2rem;
+    background-color: var(--clr-purple-base);
+    border-radius: 20px;
     color: white;
     fill: white;
     white-space: nowrap;
     font-weight:600;
-    font-size: 20px;
+    font-variation-settings: "wght" 600;
     display: flex;
     flex-direction: row;
-    gap: 5px;
-    width:fit-content;
-    }
+    align-items:center;
+    justify-content:center;
+    gap: 10%;
+}
+
+.button[disabled] {
+    opacity:.8;
+}
+  
 
 .outline {
-    fill: var(--clr-grey-base);
-    background-color: transparent;
-    border:1px solid var(--clr-grey-base);
-    color: var(--clr-grey-base);
+    fill: white;
+    color: white;
+    background-color: var(--clr-grey-extradark);
+    box-shadow: none;
+}
+
+.outline:hover {
+    background-color:rgb(66, 65, 65);
+}
+
+.outline[disabled]:hover {
+    background-color:var(--clr-grey-extradark);
+}
+
+.variant {
+    fill: white;
+    background-color:#382BF0;
+    border:1px solid #382BF0;
+    color: white;
     box-shadow: none;
 }

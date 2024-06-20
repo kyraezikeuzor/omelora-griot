@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 
-export default async function userInfo() {
+export default async function getSessionUser() {
   const supabase = await createClient();
   const {
     data: { user },

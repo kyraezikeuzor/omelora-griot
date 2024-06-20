@@ -1,26 +1,37 @@
-import { Client } from '@notionhq/client';
+import {PostType} from '@/types'
+import { createClient } from "@/lib/supabase/client";
 
+export const getPosts = async () => {
+  const supabase = createClient();
 
+  const {data, error} = await supabase
+  .from("Posts")
+  .select("*")
 
-export default async function getPosts() {
+  if (error) {
+    console.log(error.message);
+  }
 
-  const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_GRIOT_DB });
+  const posts:PostType[] = data?.map((page:any) => ({
+    id:page.id,
+    fileId:page.file_id,
+    title:page.title,
+    postDate:page.post_date,
+    tags:page.tags,
+    content:page.content,
+    caption:page.caption,
+    canvaLink:page.canva_link,
+    designer:page.designer,
+    author:page.author,
+    sourceLinks:page.source_links,
+    postType: page.post_type,
+    designed:page.designed_check,
+    written:page.written_check,
+    posted:page.posted_check
+  })) as PostType[];
 
-  const databaseId: string | undefined = process.env.NEXT_PUBLIC_NOTION_GRIOT_DB_ID || '';
-
-  const response = await notion.databases.query({
-    database_id: databaseId,
-  });
-
-  return response?.results.map((page:any) => ({
-    id: page.id,
-    title: page.properties['Title']?.title[0].text?.content,
-    status:page.properties['Status']?.status?.name,
-    postDate: page.properties['Post-date']?.date?.start,
-    tags: page.properties['Tags']?.multi_select.map((tag:any) => tag.name),
-    content: page.properties['Content']?.rich_text.map((item:any)=> item.text?.content),
-    caption: page.properties['Caption']?.rich_text.map((item:any)=> item.text?.content),
-    designLink: page.properties['Design-link']?.text?.content,
-    createdBy: page.properties['Created-by']?.text?.content,
-  }));
+  return posts;
 }
+
+
+export default getPosts

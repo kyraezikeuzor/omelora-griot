@@ -1,29 +1,38 @@
-import { Client } from '@notionhq/client';
+import { createClient } from "@/lib/supabase/server";
 
+export const getPost = async (postId:string) => {
+  const supabase = createClient();
 
+  const {data, error} = await supabase
+  .from("Posts")
+  .select("*")
+  .eq("id", postId)
 
-export default async function getPost(postId:string) {
+  if (error) {
+    throw error.message;
+  }
 
-  const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_GRIOT_DB });
-
-  const databaseId: string | undefined = process.env.NEXT_PUBLIC_NOTION_GRIOT_DB_ID || '';
-
-  const response = await notion.databases.query({
-    database_id: databaseId,
-  });
-
-  const item = response?.results.filter(item => item.id === postId).map((page:any) => ({
-    id: page.id,
-    title: page.properties['Title']?.title[0].text?.content,
-    status:page.properties['Status']?.status?.name,
-    postDate: page.properties['Post-date']?.date?.start,
-    tags: page.properties['Tags']?.multi_select.map((tag:any) => tag.name),
-    content: page.properties['Content']?.rich_text.map((item:any)=> item.text?.content),
-    caption: page.properties['Caption']?.rich_text.map((item:any)=> item.text?.content),
-    designLink: page.properties['Design-link']?.text?.content,
-    createdBy: page.properties['Created-by']?.text?.content,
+  const post = data?.map((page:any) => ({
+    id:page.id,
+    fileId:page.file_id,
+    title:page.title,
+    postDate:page.post_date,
+    tags:page.tags,
+    content:page.content,
+    caption:page.caption,
+    canvaLink:page.canva_link,
+    designer:page.designer,
+    author:page.author,
+    sourceLinks:page.source_links,
+    postType: page.post_type,
+    designed:page.designed_check,
+    written:page.written_check,
+    posted:page.posted_check
   }))
 
+  return post[0];
 
-  return item;
 }
+
+
+export default getPost

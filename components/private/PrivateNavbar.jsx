@@ -27,14 +27,12 @@ export default function PrivateNavbar() {
   };
 
   return (
-    <div className="z-40 w-full flex sticky top-0 p-5 md:px-[2vw] bg-[--clr-base] border-b border-[--clr-grey-light] shadow-xs">
+    <div className="z-40 w-full flex sticky top-0 p-5 md:px-[2vw] bg-[--clr-base] border-b-[1px] border-[--clr-grey-extralight] shadow-xs">
       
       <span className='w-full ml-16 flex flex-row items-center font-medium'>
         My Dashboard
       </span>
 
-      <div className="hidden flex justify-end w-full ">
-      </div>
     </div>
   );
 }

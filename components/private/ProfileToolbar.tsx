@@ -1,8 +1,8 @@
 import React from "react";
-import { getProfileData } from "@/lib/getSessionProfile";
+import getSessionUser from "@/lib/getSessionUser";
 import Modal from '@/components/Modal'
-import ProfilePicture from '@/components/ProfilePicture'
-import LogOut from './LogOut'
+import Avatar from '@/components/private/Avatar'
+import LogOutButton from './LogOutButton'
 
 type ProfileIconProps = {
     size?: 'sm' | 'lg' | 'xl',
@@ -10,13 +10,14 @@ type ProfileIconProps = {
 
 export default async function ProfileIcon({size}:ProfileIconProps) {
   
-  const data = await getProfileData()
+  const data = await getSessionUser()
+  const userId = data?.id ? data?.id : ''
   
   return (
 
     <Modal 
-    modalClassName='z-50 py-2 w-[250px] h-fit absolute left-2 bottom-12 right-2'
-    toggleElement={<ProfilePicture size={size} profileId={data?.user_id}/>}
+    className='z-50 py-2 w-[250px] h-fit absolute left-2 bottom-12 right-2'
+    modalTrigger={<Avatar size={size} profileId={userId}/>}
     >
         <div className='w-full h-full flex flex-col gap-3 justify-between'>
           <div >
@@ -34,10 +35,9 @@ export default async function ProfileIcon({size}:ProfileIconProps) {
           <hr className='bg-[--clr-grey-base] h-[1px]'/>
 
           <div >
-            <LogOut/>
+            <LogOutButton/>
           </div>
         </div>
-
     </Modal>
   );
 }

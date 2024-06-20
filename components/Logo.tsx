@@ -11,15 +11,9 @@ type LogoProps = {
 const Logo = ({minimal, size, className, path}: LogoProps) => {
 
     return (
-        <Link href={path != null ? path : '/' } className={`${className} flex flex-row items-center gap-2`}>
-            
-            <img className='w-8 md:w-6' src='https://schoolhouse.world/assets/public/logo-new-small-v2.svg'/>
-            
-            {!minimal && 
-            <span className='hidden md:block font-semibold text-base'>
-                Computable
-            </span>}
-
+        <Link href={path != null ? path : '/' } className={`${className} flex flex-row items-center gap-1`}>
+            <img className='w-6 h-auto' src='/omelora-logo.png'/>
+            <span className='font-semibold text-xl tracking-tight'>Omelora</span>
         </Link>
     )
 }

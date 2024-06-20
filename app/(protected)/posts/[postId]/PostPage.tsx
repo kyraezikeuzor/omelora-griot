@@ -1,43 +1,52 @@
-import {Post} from '@/types'
+'use client'
 import Link from 'next/link'
 import Icon from '@/components/Icon'
-import getPost from '@/lib/getPost'
+import Checkbox from '@/components/events/Checkbox'
+import updateTableRow from '@/lib/updateTableRow'
 
-interface Props {
-  posts: Post[];
-}
-
-type PageParamsProps = {
-  params: {postId: string}
-}
-
-
-export default async function PostPage({params}:PageParamsProps) {
-
-  const data = await getPost(params.postId)
-  const post = data[0]
-
-  return (
-      <div className='relative flex flex-col gap-3 p-3 border border-[--clr-grey-light] rounded-2xl'>
-        <span className='font-semibold text-3xl'>{post.title}</span>
-        <div className='flex flex-col gap-1'>
-            <span className='text-sm'><span className='font-medium'>Post Date:</span> {post.postDate}</span>
-            <span className='text-sm'><span className='font-medium'>Status:</span> {post.status}</span>
-        </div>
-        
-        {post.caption.length !== 0 && <p className='whitespace-pre-wrap text-sm border border-[--clr-grey-light] rounded-xl py-1 px-2'>
-            {post.caption}
-        </p>}
-
-        {post.tags.length != 0 && <ul className='flex flex-row gap-1 flex-wrap'>
-            {post.tags.map((tag:string) => (
-                <li className='text-xs font-semibold border border-[--clr-grey-light] rounded-2xl py-1 px-2 bg-[--clr-grey-extralight]' key={tag}>{tag}</li>
-            ))}
-        </ul>}
-
-        <br/><br/>
-
-        
-    </div>
-  );
+export default function PostPage({id,title,content,caption,sourceLinks,written,designed,posted}:{id:string,title:string,content:string,caption:string,sourceLinks:string[],written:boolean,designed:boolean,posted:boolean}) {
+    return (
+        <section className='flex flex-col gap-5 border-base rounded-lg p-5 lg:p-12 shadow-md'>
+            <h1 className='font-semibold text-lg md:text-xl lg:text-2xl 2xl:text-3xl'>{title}</h1>
+            <hr/>
+            <div className='flex flex-col gap-1 text-sm'>
+                <Checkbox 
+                checked={written}
+                onCheckOn={() => updateTableRow('Posts', { 'id': id }, { written_check: true })}
+                onCheckOff={() => updateTableRow('Posts', { 'id': id }, { written_check: false })}
+                >
+                    Written
+                </Checkbox>
+                <Checkbox
+                checked={designed}
+                onCheckOn={() => updateTableRow('Posts', { 'id': id }, { designed_check: true })}
+                onCheckOff={() => updateTableRow('Posts', { 'id': id }, { designed_check: false })}>
+                    Designed
+                </Checkbox>
+                <Checkbox 
+                checked={posted}
+                onCheckOn={() => updateTableRow('Posts', { 'id': id }, { posted_check: true })}
+                onCheckOff={() => updateTableRow('Posts', { 'id': id }, { posted_check: false })}
+                >
+                    Posted
+                </Checkbox>
+                
+            </div>
+            <hr/>
+            <div className='flex flex-col gap-1 w-full text-sm'>
+                {sourceLinks.map((item,index)=>(
+                    <Link 
+                    key={index}
+                    className='whitespace-pre-wrap rounded-md bg-[--clr-grey-extralight] font-semibold px-4 py-2 hover:opacity-75' 
+                    href={item}>
+                        {item} <Icon icon='ExternalLink' size='xs' inline/>
+                    </Link>
+                ))}
+            </div>
+            <hr/>
+            <p className='font-medium whitespace-pre-wrap text-sm'>{caption}</p>
+            <hr/>
+            <p className='font-medium whitespace-pre-wrap text-sm'>{content}</p>
+        </section>
+    )
 }

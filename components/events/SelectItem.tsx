@@ -1,6 +1,6 @@
 'use client'
 import React, {useState, useEffect} from 'react'
-import Icon from './Icon'
+import Icon from '../Icon'
 
 type SelectProps = {
     children: React.ReactNode;
@@ -10,7 +10,7 @@ type SelectProps = {
     list:any;
 }
 
-const Select = ({children, onSelectOn, onSelectOff, thisItem, list}: SelectProps) => {
+const Select = ({children, onSelectOn, thisItem, list}: SelectProps) => {
 
     const [click, setClick] = useState(false)
     const [prevClick, setPrevClick] = useState(false);
@@ -23,7 +23,7 @@ const Select = ({children, onSelectOn, onSelectOff, thisItem, list}: SelectProps
     useEffect(() => {
         // Check conditions and call appropriate functions
         if (!click && prevClick) {
-            onSelectOff();
+            
         } else if (click && !prevClick) {
             onSelectOn();
         }
@@ -41,7 +41,8 @@ const Select = ({children, onSelectOn, onSelectOff, thisItem, list}: SelectProps
         <>
           <div 
           onClick={() => setClick(!click)} 
-          className={`flex flex-row gap-2 p-1 items-center rounded-lg ${click ? 'bg-[--clr-blue-light] border-4 border-[--clr-blue-base]' : 'bg-[--clr-grey-light] border-2 border-[--clr-grey-base]'} `}>
+          className={`flex flex-row gap-2 p-1 items-center rounded-lg shadow-sm
+          ${click ? 'border-[3px] border-[--clr-purple-base]' : 'border-base'} `}>
             {children}
           </div>
         </>

@@ -1,0 +1,1 @@
+export const canvaPostsFolder = 'https://www.canva.com/folder/FAF5qkjJHkU'
